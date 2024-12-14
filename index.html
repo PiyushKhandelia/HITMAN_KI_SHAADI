@@ -390,17 +390,32 @@ a {
 }
 
 @media only screen and (max-width: 600px) {
-  a.arrow__btn {
-    display: none;
-  }
   .wrapper {
-    display: none;
+    display: block; /* Change the layout to block for stacking */
+  }
+
+  .wrapper section {
+    display: flex; /* Change to flex layout */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center the items horizontally */
   }
 
   .wrapper section .item {
-    max-width: 100%;
+    width: 90%; /* Adjust width to fit the screen with padding */
+    height: auto; /* Maintain aspect ratio */
+    margin: 10px 0; /* Add space between items */
+  }
+
+  .wrapper section .item img {
+    width: 100%; /* Ensure images take the full width of their container */
+    height: auto; /* Maintain image aspect ratio */
+  }
+
+  a.arrow__btn {
+    display: none; /* Hide arrows in mobile view */
   }
 }
+
 
 .tile__img {
   max-width: 45%;
