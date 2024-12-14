@@ -1122,37 +1122,182 @@ var styles2 = [
                 }
             });
         }
-
+/*
         document.addEventListener('DOMContentLoaded', function() {
-          const weddingDate = new Date('December 13, 2023');
-          const currentDate = new Date();
+  const weddingDate = new Date('December 13, 2023');
+  const currentDate = new Date();
+
+  // Calculate the difference in years
+  const yearsSinceWedding = currentDate.getFullYear() - weddingDate.getFullYear();
+
+  // Function to get ordinal suffix
+  function getOrdinalSuffix(number) {
+    const j = number % 10,
+    k = number % 100;
+    if (j == 1 && k != 11) {
+      return number + "st";
+    }
+    if (j == 2 && k != 12) {
+      return number + "nd";
+    }
+    if (j == 3 && k != 13) {
+      return number + "rd";
+    }
+    return number + "th";
+  }
+
+  // Determine the next anniversary date
+  let nextAnniversaryYear = currentDate.getFullYear();
+  if (currentDate > new Date(`December 13, ${currentDate.getFullYear()}`)) {
+    nextAnniversaryYear++;
+  }
+
+  // Set the countdown date
+  var countDownDate = new Date(`Dec 13, ${nextAnniversaryYear} 00:00:00`).getTime();
+
+  // Update the anniversary label
+  const anniversaryLabel = document.querySelector('.anniversary.dance-med');
+  anniversaryLabel.textContent = getOrdinalSuffix(yearsSinceWedding + 1);
+
+  // Countdown timer
+  var x = setInterval(function () {
+    var now = new Date().getTime();
+
+    // Find the distance between now and the count down date
+    var distance = countDownDate - now;
+
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Check if it's the anniversary date
+    var anniversaryToday = new Date();
+    if (
+      anniversaryToday.getMonth() === 11 && // December (0-indexed)
+      anniversaryToday.getDate() === 13 &&
+      anniversaryToday.getFullYear() === nextAnniversaryYear - 1
+    ) {
+      document.getElementById("time").innerHTML = "Happy Anniversary!";
+      clearInterval(x);
+    } else {
+      // Output the result in an element with id="time"
+      document.getElementById("time").innerHTML =
+        "<div class='container'><div class='days block'>" +
+        days +
+        "<br>Days</div>" +
+        "<div class='hours block'>" +
+        hours +
+        "<br>Hours</div>" +
+        "<div class='minutes block'>" +
+        minutes +
+        "<br>Minutes</div>" +
+        "<div class='seconds block'>" +
+        seconds +
+        "<br>Seconds</div></div>";
+    }
+
+    // Stop the countdown when it reaches zero
+    if (distance < 0) {
+      clearInterval(x);
+      document.getElementById("time").innerHTML = "Happy Anniversary!";
+    }
+  }, 1000);
+});
+*/
+
+document.addEventListener('DOMContentLoaded', function() {
+  const weddingDate = new Date('December 13, 2023');
+  const currentDate = new Date();
+
+  // Calculate the correct anniversary number
+  function calculateAnniversaryNumber() {
+    const yearDifference = currentDate.getFullYear() - weddingDate.getFullYear();
     
-          // Calculate the difference in years
-          const yearsSinceWedding = currentDate.getFullYear() - weddingDate.getFullYear();
+    // Check if current date is before or after the anniversary date this year
+    const anniversaryThisYear = new Date(currentDate.getFullYear(), 11, 13); // December 13th
     
-          // Function to get ordinal suffix
-          function getOrdinalSuffix(number) {
-            const j = number % 10,
-            k = number % 100;
-            if (j == 1 && k != 11) {
-              return number + "st";
-            }
-            if (j == 2 && k != 12) {
-              return number + "nd";
-            }
-            if (j == 3 && k != 13) {
-              return number + "rd";
-            }
-            return number + "th";
-          }
-    
-          // Get the ordinal year
-          const ordinalYear = getOrdinalSuffix(yearsSinceWedding);
-    
-          // Update the label
-          const anniversaryLabel = document.querySelector('.anniversary.dance-med');
-          anniversaryLabel.textContent = ordinalYear;
-        });
+    // If current date is before the anniversary, subtract 1 from year difference
+    return currentDate < anniversaryThisYear ? yearDifference : yearDifference + 1;
+  }
+
+  // Function to get ordinal suffix
+  function getOrdinalSuffix(number) {
+    const j = number % 10,
+    k = number % 100;
+    if (j == 1 && k != 11) {
+      return number + "st";
+    }
+    if (j == 2 && k != 12) {
+      return number + "nd";
+    }
+    if (j == 3 && k != 13) {
+      return number + "rd";
+    }
+    return number + "th";
+  }
+
+  // Determine the next anniversary date
+  let nextAnniversaryYear = currentDate.getFullYear();
+  if (currentDate > new Date(`December 13, ${currentDate.getFullYear()}`)) {
+    nextAnniversaryYear++;
+  }
+
+  // Set the countdown date
+  var countDownDate = new Date(`Dec 13, ${nextAnniversaryYear} 00:00:00`).getTime();
+
+  // Update the anniversary label with the correct anniversary number
+  const anniversaryLabel = document.querySelector('.anniversary.dance-med');
+  anniversaryLabel.textContent = getOrdinalSuffix(calculateAnniversaryNumber());
+
+  // Countdown timer
+  var x = setInterval(function () {
+    var now = new Date().getTime();
+
+    // Find the distance between now and the count down date
+    var distance = countDownDate - now;
+
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Check if it's the anniversary date
+    var anniversaryToday = new Date();
+    if (
+      anniversaryToday.getMonth() === 11 && // December (0-indexed)
+      anniversaryToday.getDate() === 13 &&
+      anniversaryToday.getFullYear() === nextAnniversaryYear - 1
+    ) {
+      document.getElementById("time").innerHTML = "Happy Anniversary!";
+      clearInterval(x);
+    } else {
+      // Output the result in an element with id="time"
+      document.getElementById("time").innerHTML =
+        "<div class='container'><div class='days block'>" +
+        days +
+        "<br>Days</div>" +
+        "<div class='hours block'>" +
+        hours +
+        "<br>Hours</div>" +
+        "<div class='minutes block'>" +
+        minutes +
+        "<br>Minutes</div>" +
+        "<div class='seconds block'>" +
+        seconds +
+        "<br>Seconds</div></div>";
+    }
+
+    // Stop the countdown when it reaches zero
+    if (distance < 0) {
+      clearInterval(x);
+      document.getElementById("time").innerHTML = "Happy Anniversary!";
+    }
+  }, 1000);
+});
+
     </script>
     <div>
       <blockquote>
